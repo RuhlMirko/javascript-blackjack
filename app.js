@@ -1,6 +1,8 @@
 "use strict";
 
 /* Player logic section */
+const suits = ["diamonds", "clubs", "hearts", "spades"];
+let cardScore = 0;
 
 function getRandCard() {
   var random_num = Math.trunc(Math.random() * 13) + 1;
@@ -9,9 +11,29 @@ function getRandCard() {
   return [random_num, random_suit];
 }
 
+function startGame() {
+  hit();
+}
+
+function hit() {
+  let card_number = getRandCard()[0];
+  let card_suit = getRandCard()[1];
+
+  renderGame(card_number, card_suit);
+  cardScore += card_number;
+  document.getElementById("player-score").textContent = cardScore;
+}
+
+function stay() {}
+
 /* Page game render section */
-function renderGame() {
-  return;
+let hand = 0;
+function renderGame(num, suit) {
+  document.querySelector(`.hand--${hand}`).classList.remove("hidden");
+  document.querySelector(
+    `.hand--${hand}`
+  ).src = `cards/${num}_of_${suits[suit]}.png`;
+  hand++;
 }
 
 /*
