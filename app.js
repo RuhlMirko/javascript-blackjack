@@ -12,6 +12,14 @@ function getRandCard() {
 }
 
 function startGame() {
+  cardScore = 0;
+  hand = 0;
+  for (let i = 0; i <= 6; i++) {
+    if (i >= 2) {
+      document.querySelector(`.hand--${i}`).classList.add("hidden");
+    }
+    document.querySelector(`.hand--${i}`).src = `cards/back-side.png`;
+  }
   hit();
 }
 
@@ -22,9 +30,19 @@ function hit() {
   renderGame(card_number, card_suit);
   cardScore += card_number;
   document.getElementById("player-score").textContent = cardScore;
+  checkScore();
 }
 
-function stay() {}
+function checkScore() {
+  const titleLbl = document.getElementById("title");
+  if (cardScore == 21) {
+    titleLbl.textContent = "You won the game 🥳🎉";
+    startGame();
+  } else if (cardScore > 21) {
+    titleLbl.textContent = "You lost the game 💥❌: " + cardScore;
+    startGame();
+  }
+}
 
 /* Page game render section */
 let hand = 0;
